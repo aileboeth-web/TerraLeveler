@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "cn.terraleveler.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "BlockStatePredictionHandlerAccessor",
+    "ClientLevelSequenceAccessor",
+    "ClientPacketListenerMixin",
+    "MinecraftScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,54 @@
+# gradle
+
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
+*.launch
+
+# idea
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# windows
+
+Thumbs.db
+desktop.ini
+
+# fabric / minecraft dev runs
+
+run/
+logs/
+config/
+
+# local leftovers
+
+backups/
+*.log
+*.tmp
+*.bak
+
+# java
+
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr

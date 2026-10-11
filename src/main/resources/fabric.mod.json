@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "terraleveler",
+	"version": "${version}",
+	"name": "TerraLeveler",
+	"description": "Client-side survival assistant that levels terrain to a target height (rectangle or whole island) and lights areas.",
+	"authors": [
+		"cys"
+	],
+	"license": "MIT",
+	"icon": "assets/terraleveler/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"cn.terraleveler.TerraLeveler"
+		],
+		"modmenu": [
+			"cn.terraleveler.TerraLevelerModMenu"
+		]
+	},
+	"mixins": [
+		"terraleveler.client.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*",
+		"malilib": ">=0.28.6",
+		"quickshulker": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}
