@@ -3270,7 +3270,7 @@ public final class ConstructionController {
                               + " 但连续 2 秒无法换入快捷栏；playerMenu="
                               + (mc.player.containerMenu == mc.player.inventoryMenu)
                               + " visibleContainer="
-                              + (mc.screen instanceof AbstractContainerScreen)
+                              + (mc.gui.screen() instanceof AbstractContainerScreen)
                         );
                      } else {
                         this.pause(mc, "泥土/草方块不足；当前单层地表仍需约 " + (this.wallTargets.size() - this.wallIndex) + " 块，且选区内目标 Y 以上没有可安全回采的泥土");
@@ -4081,7 +4081,7 @@ public final class ConstructionController {
                choice = DefensiveCombat.weaponChoice(mc, mc.player.getInventory().getSelectedSlot());
                weapon = choice.stack();
                mc.gameMode.attack(mc.player, target);
-               mc.player.swing(InteractionHand.MAIN_HAND);
+               mc.player.swing(InteractionHand.MAIN_HAND, mc.player.getMainHandItem().getAttackAnimation(), false);
                TerraLevelerDiagnostics.log(
                   "COMBAT",
                   "attack target="
@@ -12691,7 +12691,7 @@ public final class ConstructionController {
    private void beginMaterialUnpack(Minecraft mc, ConstructionController.State returnState, Item requestedItem, int amount) {
       if (requestedItem == null) {
          this.pause(mc, "潜影盒补货请求缺少有效物品");
-      } else if (mc.screen instanceof AbstractContainerScreen) {
+      } else if (mc.gui.screen() instanceof AbstractContainerScreen) {
          AutoNavigator.release(mc);
          this.detail = "请先关闭背包界面；TerraLeveler 不会在打开的背包界面上存取潜影盒";
       } else {
@@ -12789,7 +12789,7 @@ public final class ConstructionController {
          return;
       }
       // The player opened their inventory: the hidden box menu must not stay open under it.
-      if (mc.screen instanceof AbstractContainerScreen) {
+      if (mc.gui.screen() instanceof AbstractContainerScreen) {
          this.beginMaterialRollback(mc, "潜影盒事务期间打开了背包界面，已关闭潜影盒");
          return;
       }
@@ -12873,7 +12873,7 @@ public final class ConstructionController {
          return false;
       }
 
-      if (mc.screen instanceof AbstractContainerScreen) {
+      if (mc.gui.screen() instanceof AbstractContainerScreen) {
          AutoNavigator.release(mc);
          this.detail = "请先关闭背包界面；TerraLeveler 不会在打开的背包界面上存取潜影盒";
          return false;
@@ -13314,7 +13314,7 @@ public final class ConstructionController {
       }
 
       this.hotbarMaterialRetryTicks++;
-      boolean visibleContainer = mc.screen instanceof AbstractContainerScreen;
+      boolean visibleContainer = mc.gui.screen() instanceof AbstractContainerScreen;
       if (this.hotbarMaterialRetryTicks == 1 || this.hotbarMaterialRetryTicks % 10 == 0) {
          TerraLevelerDiagnostics.log(
             "MATERIAL",
@@ -13731,7 +13731,7 @@ public final class ConstructionController {
     * use those keys for the camera, and inventory transactions must finish first.
     */
    private boolean manualMovementOverride(Minecraft mc) {
-      if (mc.screen != null || AutoNavigator.isFreeCamera(mc)
+      if (mc.gui.screen() != null || AutoNavigator.isFreeCamera(mc)
          || this.state == ConstructionController.State.UNPACKING_MATERIAL
          || this.state == ConstructionController.State.SWAPPING_TOOL
          || this.directedItemDiscardTransaction != null) {

@@ -28,7 +28,7 @@ final class LightingTorchShulkerExtractor {
             detail = "真实玩家或游戏交互暂不可用";
             return StartResult.BLOCKED;
         }
-        if (mc.screen instanceof AbstractContainerScreen) {
+        if (mc.gui.screen() instanceof AbstractContainerScreen) {
             detail = "请先关闭背包界面；TerraLeveler 不会在打开的背包界面上取火把";
             return StartResult.WAITING_FOR_CLOSED_GUI;
         }
@@ -69,7 +69,7 @@ final class LightingTorchShulkerExtractor {
             fail(mc, "取火把期间真实玩家或游戏交互不可用");
             return status;
         }
-        if (mc.screen instanceof AbstractContainerScreen) {
+        if (mc.gui.screen() instanceof AbstractContainerScreen) {
             fail(mc, "取火把期间打开了背包界面，已关闭潜影盒");
             return status;
         }

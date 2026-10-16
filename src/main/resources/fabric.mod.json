@@ -22,11 +22,11 @@
 		"terraleveler.client.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.1.2",
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
 		"java": ">=25",
 		"fabric-api": "*",
-		"malilib": ">=0.28.6",
+		"malilib": ">=0.30.2",
 		"quickshulker": "*"
 	},
 	"suggests": {

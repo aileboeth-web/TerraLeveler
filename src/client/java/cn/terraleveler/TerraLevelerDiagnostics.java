@@ -45,7 +45,7 @@ public final class TerraLevelerDiagnostics {
         } catch (java.io.IOException ignored) {
             // fall back to opening the folder
         }
-        net.minecraft.util.Util.getPlatform().openPath(log.getParent());
+        com.mojang.blaze3d.Blaze3D.openPath(log.getParent());
     }
 
     public static synchronized void initialize(String version, boolean enabled) {

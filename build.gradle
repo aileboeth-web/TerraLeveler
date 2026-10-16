@@ -44,7 +44,7 @@ dependencies {
 	compileOnly "fi.dy.masa.malilib:malilib-fabric-${project.minecraft_version}:${project.malilib_version}"
 
 	// Optional at runtime: only adds the "Config" button in ModMenu's mod list (0.9.15).
-	compileOnly files("libs/modmenu-18.0.0-beta.1.jar")
+	compileOnly files("libs/modmenu-21.0.0.jar")
 
 	testImplementation "org.junit.jupiter:junit-jupiter:5.10.3"
 	testImplementation "org.junit.platform:junit-platform-console:1.10.3"

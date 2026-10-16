@@ -13,7 +13,6 @@ import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.client.input.KeyEvent;
 import net.minecraft.client.input.MouseButtonEvent;
 
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -182,8 +181,8 @@ final class TerraLevelerMalilibConfigScreen extends GuiConfigsBase {
         }
         boolean handled = super.onKeyTyped(event);
         // A text field is committed with Enter or Tab.
-        if (event.key() == GLFW.GLFW_KEY_ENTER || event.key() == GLFW.GLFW_KEY_KP_ENTER
-                || event.key() == GLFW.GLFW_KEY_TAB) {
+        if (event.key() == InputConstants.KEY_RETURN || event.key() == InputConstants.KEY_NUMPADENTER
+                || event.key() == InputConstants.KEY_TAB) {
             applyAndSave();
         }
         return handled;
@@ -701,7 +700,7 @@ final class TerraLevelerMalilibConfigScreen extends GuiConfigsBase {
 
     private void openRetainedItemsScreen() {
         applyAndSave();
-        mc.setScreen(new TerraLevelerRetainedItemsScreen(this));
+        mc.gui.setScreen(new TerraLevelerRetainedItemsScreen(this));
     }
 
     @Override

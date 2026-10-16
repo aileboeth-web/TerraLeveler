@@ -167,7 +167,7 @@ final class LightingGuard {
         }
         if (mc.player.getAttackStrengthScale(0.0F) >= 0.9F) {
             mc.gameMode.attack(mc.player, target);
-            mc.player.swing(InteractionHand.MAIN_HAND);
+            mc.player.swing(InteractionHand.MAIN_HAND, mc.player.getMainHandItem().getAttackAnimation(), false);
             TerraLevelerDiagnostics.log("LIGHTING", "guard-attack target=" + DefensiveCombat.describe(target)
                     + " reason=" + threat.reason() + " distance=" + String.format("%.2f", threat.distance())
                     + " slot=" + slot + " targetHealth=" + String.format("%.1f", target.getHealth()));

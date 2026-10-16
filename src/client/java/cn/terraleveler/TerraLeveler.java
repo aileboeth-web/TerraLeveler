@@ -18,7 +18,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -304,13 +303,13 @@ public final class TerraLeveler implements ClientModInitializer {
             restoreSelection(mc);
         }
         // The settings screen is where shortcuts are rebound; keys pressed there must not act.
-        boolean shortcutCapture = mc.screen instanceof TerraLevelerMalilibConfigScreen;
-        boolean startDown = !shortcutCapture && mc.screen == null && keyDown(mc, CONFIG.startPauseKey);
+        boolean shortcutCapture = mc.gui.screen() instanceof TerraLevelerMalilibConfigScreen;
+        boolean startDown = !shortcutCapture && mc.gui.screen() == null && keyDown(mc, CONFIG.startPauseKey);
         // emergencyStopKey is the pause/resume binding; like every other TerraLeveler key it
         // must not fire while chat, a sign or an inventory screen receives typing.
-        boolean stopDown = !shortcutCapture && mc.screen == null && keyDown(mc, CONFIG.emergencyStopKey);
-        boolean heightDown = !shortcutCapture && mc.screen == null && keyDown(mc, CONFIG.flattenHeightKey);
-        boolean retainDown = !shortcutCapture && mc.screen == null && CONFIG.customRetainedItemsEnabled
+        boolean stopDown = !shortcutCapture && mc.gui.screen() == null && keyDown(mc, CONFIG.emergencyStopKey);
+        boolean heightDown = !shortcutCapture && mc.gui.screen() == null && keyDown(mc, CONFIG.flattenHeightKey);
+        boolean retainDown = !shortcutCapture && mc.gui.screen() == null && CONFIG.customRetainedItemsEnabled
                 && keyDown(mc, CONFIG.retainItemKey);
         if (shortcutCapture) {
             startWasDown = false;
@@ -520,8 +519,8 @@ public final class TerraLeveler implements ClientModInitializer {
 
     private static boolean keyDown(Minecraft mc, String keyName) {
         ShortcutBinding binding = configuredBinding(keyName);
-        return binding.key() != InputConstants.UNKNOWN && binding.key().getType() == InputConstants.Type.KEYSYM
-                && InputConstants.isKeyDown(mc.getWindow(), binding.key().getValue())
+        return binding.key() != InputConstants.UNKNOWN && binding.key().getType() == InputConstants.Type.KEYBOARD
+                && InputConstants.isKeyDown(binding.key().getValue())
                 && modifiersMatch(mc, binding);
     }
 
@@ -631,7 +630,7 @@ public final class TerraLeveler implements ClientModInitializer {
     }
 
     static void setBoundKeyComposite(int action, net.minecraft.client.input.KeyEvent event) {
-        InputConstants.Key key = InputConstants.Type.KEYSYM.getOrCreate(event.key());
+        InputConstants.Key key = InputConstants.Type.KEYBOARD.getOrCreate(event.key());
         if (key == InputConstants.UNKNOWN || isModifierKey(event.key())) {
             setBoundKeyNameValue(action, "");
         } else {
@@ -651,9 +650,9 @@ public final class TerraLeveler implements ClientModInitializer {
     }
 
     static boolean isModifierKey(int keyCode) {
-        return keyCode == GLFW.GLFW_KEY_LEFT_CONTROL || keyCode == GLFW.GLFW_KEY_RIGHT_CONTROL
-                || keyCode == GLFW.GLFW_KEY_LEFT_SHIFT || keyCode == GLFW.GLFW_KEY_RIGHT_SHIFT
-                || keyCode == GLFW.GLFW_KEY_LEFT_ALT || keyCode == GLFW.GLFW_KEY_RIGHT_ALT;
+        return keyCode == InputConstants.KEY_LCONTROL || keyCode == InputConstants.KEY_RCONTROL
+                || keyCode == InputConstants.KEY_LSHIFT || keyCode == InputConstants.KEY_RSHIFT
+                || keyCode == InputConstants.KEY_LALT || keyCode == InputConstants.KEY_RALT;
     }
 
     private static ShortcutBinding configuredBinding(String value) {
@@ -675,12 +674,12 @@ public final class TerraLeveler implements ClientModInitializer {
     }
 
     private static boolean modifiersMatch(Minecraft mc, ShortcutBinding binding) {
-        boolean control = InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_LEFT_CONTROL)
-                || InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_RIGHT_CONTROL);
-        boolean shift = InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_LEFT_SHIFT)
-                || InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_RIGHT_SHIFT);
-        boolean alt = InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_LEFT_ALT)
-                || InputConstants.isKeyDown(mc.getWindow(), GLFW.GLFW_KEY_RIGHT_ALT);
+        boolean control = InputConstants.isKeyDown(InputConstants.KEY_LCONTROL)
+                || InputConstants.isKeyDown(InputConstants.KEY_RCONTROL);
+        boolean shift = InputConstants.isKeyDown(InputConstants.KEY_LSHIFT)
+                || InputConstants.isKeyDown(InputConstants.KEY_RSHIFT);
+        boolean alt = InputConstants.isKeyDown(InputConstants.KEY_LALT)
+                || InputConstants.isKeyDown(InputConstants.KEY_RALT);
         return control == binding.control() && shift == binding.shift() && alt == binding.alt();
     }
 

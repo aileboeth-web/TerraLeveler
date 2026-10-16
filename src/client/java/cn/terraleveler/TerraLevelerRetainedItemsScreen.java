@@ -144,7 +144,7 @@ public final class TerraLevelerRetainedItemsScreen extends Screen {
     public void onClose() {
         TerraLeveler.refreshMalilibConfigOptions();
         if (parent instanceof TerraLevelerMalilibConfigScreen screen) screen.reloadLiveConfig();
-        minecraft.setScreen(parent);
+        minecraft.gui.setScreen(parent);
     }
 
     @Override
